@@ -28,6 +28,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model) {
         model.addAttribute("customers", customerRepository.findAll());
+
         return "index";
     }
 
@@ -62,16 +63,6 @@ public class HomeController {
             return "newaccountform";
         }
 
-        Customer customer = customerRepository.findById(id);
-        account.setCustomer(customer);
-
-        Set<Account> accounts = customer.getAccounts();
-        accounts.add(account);
-
-        customer.setAccounts(accounts);
-        accountRepository.save(account);
-        customerRepository.save(customer);
-
         return "redirect:/";
     }
 
@@ -81,14 +72,47 @@ public class HomeController {
         return "showtransactions";
     }
 
+    @GetMapping("/transaction/{id}")
+    public String trasaction (@PathVariable("id") long id, Model model) {
+        Account account = accountRepository.findById(id);
+        model.addAttribute("account", account);
+        return "login";
+    }
+
+    @PostMapping("/login/{id}")
+    public String login(@PathVariable("id") long id,
+                                  @Valid Account account, Model model,
+                                  BindingResult result) {
+        if (result.hasErrors()) {
+            return "login";
+        }
 
 
 
+    }
+        @GetMapping("/statement/{id}")
+        public String receipt (@PathVariable("id") long id, Model model) {
+            Account accountz = accountRepository.findById(id);
 
-
-
+            Set<Transaction> transactions = transactionRepository.findAllByaccountNumber(accountz.getAccountNumber());
+            model.addAttribute("transactions", transactions);
+            return "receipt";
+        }
 
 
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+

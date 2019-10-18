@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <!--    <hr/>-->
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <p th:inline="text">
+        Accounts Number:[[${transaction.accountNumber}]]</br>
+        Balance: $[[${transaction.accountBal}]]
+    </p>
+
+    <form action="#" th:action="@{/processXfer/{id}(id=${id})}" th:object="${xfer}" method="post">
+        <input type="hidden" th:field="*{acctno}" >
+        <input type="hidden" th:field="*{balance}" >
+        Amount:<input type="text" th:field="*{amount}"/>
+        <br/>
+        Transaction Type:
+        <input type="radio" th:field="*{deposit}" value=true> Deposit
+        <input type="radio" th:field="*{deposit}" value=false> Withdraw<br>
+        <br>
+        <input type="submit" value="Submit" />
+
+    </form>
+
+
+    <div th:insert="baseFrag :: footerFrag"></div>
+    <div th:insert="baseFrag :: scriptFrag"></div>
+    </body>
+
+    <form action="#" th:action="@{/processtransaction}" th:object="${transaction}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <div class="col-3">
+                <input type="text" th:field="*{accountNumber}" class="form-control">
+                <br>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="col-3">
+                <input type="text" th:field="*{accountBal}" class="form-control" placeholder="Enter your PIN">
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="col-3">
+                    <input type="text" th:field="*{amount}" class="form-control" placeholder="Enter your PIN">
+                </div>
+                <br>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Transaction Type
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" th:field="*{newtransactionform}">Deposit</a>
+                    <a class="dropdown-item" th:field="*{newtransactionform}">Withdraw</a>
+                </div>
+            </div>
+            <button type="submit" >Submit</button>
+        </div>
+
+
+    </form>
+</center>
+
+</body>
+</html>
