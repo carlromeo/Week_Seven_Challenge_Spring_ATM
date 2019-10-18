@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <!--    <hr/>-->
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <form action="#" th:action="@{/processcustomer}" th:object="${customer}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <div class="col-3">
+                <input type="text" th:field="*{name}" class="form-control">
+                <br>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <div class="col-3">
+                <input type="text" th:field="*{pinCode}" class="form-control" placeholder="Enter your PIN">
+            </div>
+                <button type="submit" >Submit</button>
+        </div>
+
+
+    </form>
+</center>
+
+</body>
+</html>
